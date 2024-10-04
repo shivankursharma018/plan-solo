@@ -1,130 +1,148 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskItem from './TaskItem';
 import { db } from '../firebase';
-import { addDoc, collection } from 'firebase/firestore';
-
+import { addDoc, collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserAuth } from '../context/AuthContext';
 
 const AddTask = () => {
-  const { user } = UserAuth()
-
+  const { user } = UserAuth();
   const [taskDesc, setTaskDesc] = useState('');
   const [duration, setDuration] = useState('');
   const [category, setCategory] = useState('urgent');
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      setIsLoading(false);
+      return;
+    }
+
+    const unsubscribe = onSnapshot(collection(db, user.displayName), (snapshot) => {
+      const tasksData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setTasks(tasksData);
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
 
   const handleAddTask = async (e) => {
     e.preventDefault();
-
     if (taskDesc && duration) {
-      await addDoc(collection(db, user.displayName), {
-        taskDesc,
-        duration,
-        category
-      })
-
-      setTasks([...tasks, { taskDesc, duration, category }]);
-      setTaskDesc('');
-      setDuration('');
-      setCategory('urgent');
-      
-      toast.success('Task added successfully!', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    } 
-    else {
-      toast.warn('please fill in all fields.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      try {
+        await addDoc(collection(db, user.displayName), {
+          taskDesc,
+          duration,
+          category,
+          timestamp: new Date()
+        });
+        
+        setTaskDesc('');
+        setDuration('');
+        setCategory('urgent');
+        
+        toast.success('Task added successfully!');
+      } catch (error) {
+        toast.error('Error adding task: ' + error.message);
+      }
+    } else {
+      toast.warn('Please fill in all fields.');
     }
   };
 
-  const handleDeleteTask = (index) => {
-    setTasks(tasks.filter((_, i) => i !== index));
-    
-    toast.info('Task deleted.', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteDoc(doc(db, user.displayName, taskId));
+      toast.info('Task deleted.');
+    } catch (error) {
+      toast.error('Error deleting task: ' + error.message);
+    }
   };
 
-  return (
-    <div className='bg-inherit text-white flex justify-center items-center m-10'>
-      <div className='w-3/4'>
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+      </div>
+    );
+  }
 
-        <form onSubmit={handleAddTask} className='flex flex-col gap-5'>
-          <div className='flex gap-5 items-center'>
+  return (
+    <div className='bg-inherit text-white px-4 sm:px-6 lg:px-8 py-6'>
+      <div className='max-w-7xl mx-auto'>
+        <form onSubmit={handleAddTask} className='flex flex-col gap-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4'>
+            {/* Task Description - takes up full width on mobile, half on tablet, 6/12 on desktop */}
             <input
               id='TaskDesc'
-              className='bg-inherit text-white border-2 border-dashed p-3 w-6/12'
+              className='col-span-1 sm:col-span-1 lg:col-span-6 bg-inherit text-white border-2 border-dashed p-3 rounded-md'
               type='text'
-              placeholder='enter task'
+              placeholder='Enter task'
               value={taskDesc}
               onChange={(e) => setTaskDesc(e.target.value)}
             />
-
+            
+            {/* Duration - takes up full width on mobile, half on tablet, 2/12 on desktop */}
             <input
-              className='bg-inherit text-white border-2 border-dashed p-3 w-2/12'
+              className='col-span-1 sm:col-span-1 lg:col-span-2 bg-inherit text-white border-2 border-dashed p-3 rounded-md'
               type='number'
-              placeholder='duration'
+              placeholder='Duration'
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
-              min='1' // Ensure duration is at least 1
+              min='1'
             />
-
-
+            
+            {/* Category - takes up full width on mobile, half on tablet, 3/12 on desktop */}
             <select
-              className='bg-black text-white border-2 border-dashed p-3 w-3/12'
+              className='col-span-1 sm:col-span-1 lg:col-span-3 bg-black text-white border-2 border-dashed p-3 rounded-md'
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value='important'>important</option>
-              <option value='urgent'>urgent</option>
-              <option value='ignorable'>ignorable</option>
+              <option value='important'>Important</option>
+              <option value='urgent'>Urgent</option>
+              <option value='ignorable'>Ignorable</option>
             </select>
-
-
-            <button type='submit' className='bg-[#fce7a3] text-black text-4xl p-1 w-1/12'>+</button>
+            
+            {/* Add button - takes up full width on mobile, remaining space on larger screens */}
+            <button 
+              type='submit' 
+              className='col-span-1 sm:col-span-2 lg:col-span-1 bg-[#fce7a3] text-black text-2xl sm:text-4xl p-1 rounded-md hover:bg-[#f0d47f] transition-colors'
+            >
+              +
+            </button>
           </div>
-
         </form>
         
-        <div className='mt-5'>
-          {tasks.map((task, index) => (
+        <div className='mt-6 space-y-4'>
+          {tasks.map((task) => (
             <TaskItem
-              key={index}
+              key={task.id}
               taskDesc={task.taskDesc}
               duration={task.duration}
               category={task.category}
-              onDelete={() => handleDeleteTask(index)}
+              onDelete={() => handleDeleteTask(task.id)}
             />
           ))}
         </div>
-
       </div>
-      <ToastContainer />
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 };
