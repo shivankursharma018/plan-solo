@@ -43,20 +43,17 @@ const navbar = () => {
                     <div className='cursor-pointer'>
                         <Link href={'./'}>
                             &nbsp;home &nbsp;
-                            <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>home</div>
                         </Link>
                     </div>
                     <div className='cursor-pointer'>
                         <Link href={'./profile'}>
                             &nbsp;profile&nbsp;
-                            <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>profile</div>
                         </Link>
                     </div>
                     <div className='cursor-pointer transition-1000'>
 
                             <Link href={'./about'}>
                                 &nbsp;about&nbsp;
-                                <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>about</div>
                             </Link>
                     </div>
                     {/* {!user ? null : (
