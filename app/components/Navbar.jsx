@@ -34,17 +34,30 @@ const navbar = () => {
 
     return (
         <div>
-            <div className='w-full fixed top-0 backdrop-blur mb-20 flex justify-evenly items-center text-lg'>
-                <div className='cursor-pointer text-[#fce7a3]'>plan-solo</div>
+            <div className='w-full fixed top-0 backdrop-blur mb-20 flex justify-evenly items-center text-xl'>
+                <div className='cursor-pointer text-yellow-500'>
+                    plan-solo
+                    <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>plan-solo</div>
+                </div>
                 <div className='flex gap-10'>
-                    <div className='cursor-pointer hover:underline transition-1000'>
-                        <Link href={'./'}>&nbsp;home &nbsp;</Link>
+                    <div className='cursor-pointer'>
+                        <Link href={'./'}>
+                            &nbsp;home &nbsp;
+                            <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>home</div>
+                        </Link>
                     </div>
-                    <div className='cursor-pointer hover:underline transition-1000'>
-                        <Link href={'./profile'}>&nbsp;profile&nbsp;</Link>
+                    <div className='cursor-pointer'>
+                        <Link href={'./profile'}>
+                            &nbsp;profile&nbsp;
+                            <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>profile</div>
+                        </Link>
                     </div>
-                    <div className='cursor-pointer hover:underline transition-1000'>
-                            <Link href={'./about'}>&nbsp;about&nbsp;</Link>
+                    <div className='cursor-pointer transition-1000'>
+
+                            <Link href={'./about'}>
+                                &nbsp;about&nbsp;
+                                <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>about</div>
+                            </Link>
                     </div>
                     {/* {!user ? null : (
                         <div className='cursor-pointer'>
@@ -55,12 +68,22 @@ const navbar = () => {
 
                 {!user ? (
                     <div className='flex gap-10'>
-                        <button onClick={handleSignIn} className='text-[#9D82F8] p-3'>get started -&gt;</button>
+                        <button onClick={handleSignIn} className='text-purple-500 p-3'>
+                            get started -&gt;
+                            <div className='font-aurebeshPixel text-xs'>getstarted</div>
+                        </button>
                     </div>
                 ) : (
                     <div className='flex gap-10'>
-                        <div className='text-[#9D82F8] p-3'>welcome {user.displayName}</div>
-                        <button className='text-red-600 p-3' onClick={handleLogOut}>log out</button>
+                        <div className='text-[#9D82F8] p-3'>
+                            welcome {user.displayName}
+                            <div className='font-aurebeshPixel text-xs'>welcome</div>
+                        </div>
+
+                        <button className='text-red-600 p-3' onClick={handleLogOut}>
+                            log out
+                            <div className='font-aurebeshPixel text-xs'>logout</div>
+                        </button>
                     </div>
                 )}
             </div>

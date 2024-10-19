@@ -1,9 +1,9 @@
 import React from 'react';
 
 const categoryColors = {
-  important: 'bg-green-500 text-black',
-  urgent: 'bg-yellow-500 text-black',
-  ignorable: 'bg-gray-500 text-black'
+  important: 'border-2 border-green-500 text-green-500',
+  urgent: 'border-2 border-yellow-500 text-yellow-500',
+  ignorable: 'border-2 border-cyan-500 text-cyan-500'
 };
 
 const TaskItem = ({ taskDesc, duration, category, onDelete }) => {
@@ -17,14 +17,14 @@ const TaskItem = ({ taskDesc, duration, category, onDelete }) => {
       </div>
       
       <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto'>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${categoryClass} w-full sm:w-auto text-center`}>
+        <span className={`px-3 py-1 rounded text-sm font-medium ${categoryClass} w-full sm:w-auto text-center`}>
           {category}
         </span>
         <button 
           onClick={onDelete} 
-          className='bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition-colors w-full sm:w-auto'
+          className='border-2 border-red-600 text-red-600 px-4 py-1 rounded font-bold hover:bg-red-700 hover:text-white transition-colors w-full sm:w-auto'
         >
-          Delete
+          DELETE
         </button>
       </div>
     </div>

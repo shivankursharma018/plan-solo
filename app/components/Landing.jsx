@@ -21,8 +21,9 @@ const Landing = () => {
 
             <div className='flex flex-col items-center justify-center gap-3'>
                 <p className='text-6xl'>write, plan, organize, play</p>
-                <p className='font-aurebeshPixel'>write, plan, prganize, play</p>
-                <p className='text-3xl'>turn ideas into action</p>
+                <p className='text-l text-yellow-500 font-aurebeshPixel'>write, plan, prganize, play</p>
+                <p className='text-4xl'>turn ideas into action</p>
+                <p className='text-l text-yellow-500 font-aurebeshPixel'>turn ideas into action</p>
             </div>
 
         </div>
