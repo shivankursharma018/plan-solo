@@ -26,6 +26,13 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@font-face {
+  font-family: 'aurebesh-pixel';
+  src: url('./fonts/aurebesh-pixel.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
