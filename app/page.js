@@ -19,7 +19,7 @@ const page = () => {
 
 
   return (
-    <div>
+    <div className='font-mono'>
       {/* <div>
       {loading ? (
         <Spinner />

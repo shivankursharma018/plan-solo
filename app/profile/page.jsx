@@ -1,7 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { UserAuth } from '../context/AuthContext'
-import PacmanLoader from "react-spinners/PacmanLoader";
+// import PacmanLoader from "react-spinners/PacmanLoader";
+import Spinner from '../components/Spinner'
 import AddTask from '../components/AddTask';
 import NotLogin from '../components/NotLogin';
 
@@ -19,10 +20,10 @@ const page = () => {
   }, [user])
   
   return (
-    <div>
+    <div className='font-mono'>
       {loading ? (
         <div className='flex justify-center items-center h-screen'>
-            <PacmanLoader color="#fce7a3" />
+            <Spinner />
         </div>
       ) : !user ? (
         <div className='w-full absolute top-20'>
