@@ -35,10 +35,6 @@ const navbar = () => {
     return (
         <div className='font-mono'>
             <div className='w-full fixed top-0 backdrop-blur mb-20 flex justify-evenly items-center text-xl'>
-                <div className='cursor-pointer font-bold text-yellow-500'>
-                    plan-solo
-                    {/* <div className='cursor-pointer text-blue-500 font-aurebeshPixel text-xs'>plan-solo</div> */}
-                </div>
                 <div className='flex gap-10'>
                     <div className='cursor-pointer'>
                         <Link href={'./'}>

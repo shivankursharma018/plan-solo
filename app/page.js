@@ -5,6 +5,8 @@ import LandingInfo from './components/LandingInfo'
 import MarqueeEle from './components/MarqueeEle'
 import CallToAction from './components/CallToAction'
 
+import { AnimatedBackground } from 'animated-backgrounds';
+
 const page = () => {
   // const { user } = UserAuth()
   // const [loading, setloading] = useState(true)
@@ -29,10 +31,16 @@ const page = () => {
         <div>you are on your dashboard</div>
       )}
     </div> */}
-      <Landing />
-      <LandingInfo />
-      <MarqueeEle />
-      <CallToAction />
+
+      <div>
+        <AnimatedBackground animationName="electricStorm" 
+        blendMode="normal" />
+          <Landing />
+          <LandingInfo />
+          <MarqueeEle />
+          <CallToAction />{/* Your app content */}
+      </div>
+      
     </div>
   )
 }

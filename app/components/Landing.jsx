@@ -19,9 +19,9 @@ const Landing = () => {
                 <Image src={logo} alt="logo" height={100} width={100} />
             </div>
 
-            <div className='flex flex-col items-center justify-center gap-3'>
-                <p className='text-6xl'>write, plan, organize, play</p>
-                <p className='text-l text-yellow-500 font-aurebeshPixel'>write, plan, prganize, play</p>
+            <div className='font-extrabold font-sans flex flex-col items-center justify-center gap-3'>
+                <p className='text-8xl'>plan-solo</p>
+                <p className='text-l text-yellow-500 font-aurebeshPixel'>plan-solo</p>
                 <p className='text-4xl'>turn ideas into action</p>
                 <p className='text-l text-yellow-500 font-aurebeshPixel'>turn ideas into action</p>
             </div>

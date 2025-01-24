@@ -6,12 +6,20 @@ import ipad from '../../public/ipad.png'
 const LandingInfo = () => {
   return (
     <div className='mb-40'>
-        <div className='container mx-auto text-center'>
-            <h2 className='text-4xl mb-20'>Features</h2>
+
+        <div className="flex flex-col items-center justify-center h-[90vh] gap-20">
+        
+          <div className='text-4xl mb-20'>
+          
+            users
+          </div>
+          <div className='text-4xl mb-20'>
+            visits
+          </div>
+        
         </div>
 
-        <div className='container mx-auto text-center mb-10'>
-            <p className='text-xl mb-5'>sync your notes across all your devices</p>
+        <div className=' mx-auto text-center mb-10'>
             <section className='flex justify-center items-baseline'>
                 <Image src={macbook} alt='laptop-display' className='h-[45vh] w-auto'></Image>
                 <Image src={ipad} alt='tablet-display' className='h-[30vh] w-auto'></Image>
