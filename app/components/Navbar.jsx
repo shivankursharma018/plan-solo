@@ -33,7 +33,7 @@ const navbar = () => {
     }, [user]);
 
     return (
-        <div className='font-mono'>
+        <div className='font-sans relative z-10'>
             <div className='w-full fixed top-0 backdrop-blur mb-20 flex justify-evenly items-center text-xl'>
                 <div className='flex gap-10'>
                     <div className='cursor-pointer'>
