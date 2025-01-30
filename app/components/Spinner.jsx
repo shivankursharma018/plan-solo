@@ -9,7 +9,6 @@ class Spinner extends Component {
         // Array of video URLs
         this.videoURLs = [
             'atat.mp4',
-            'clone_masks.mp4',
             'force_lightning.mp4',
             'r2d2.mp4',
         ];
